@@ -8,8 +8,8 @@ $ds = DataService::getInstance($year);
 $graph = null;
 
 if(getInput('q1') != null) {
-    $graph = Graph::createExploreGraph($year, getInput('q1'), getInput('grp'), getInput('grade'),
-        getInput('race_eth'), getInput('gender'), getInput('region'));
+    $graph = Graph::createExploreGraph($year, getInput('q1'), getInput('grp'), getInput('age'),
+        getInput('gender'), getInput('race'), getInput('ethnicity'));
 }
 
 //Persist the category selections in the form
@@ -25,7 +25,7 @@ $categories = $ds->getCategories();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Explore the Data - Indiana Youth Survey</title>
+    <title>Explore the Data - Adult Gambling Behaviors Survey</title>
     <?php include_styles();
           include_js(); ?>
 </head>
@@ -64,33 +64,35 @@ $categories = $ds->getCategories();
                 <option value="" selected="selected">Select a question</option>
             </select><br>
             <label class="shadow">3. (Optional) Filter data by:</label>
-            <select id="filterGrade" name="grade" class="filter selector hide6" title="Grade">
-                <option value="">Grade</option>
-                <option value="1">7th</option>
-                <option value="2">8th</option>
-                <option value="3">9th</option>
-                <option value="4">10th</option>
-                <option value="5">11th</option>
-                <option value="6">12th</option>
+            <select id="filterAge" name="age" class="filter selector hide6" title="Age Range">
+                <option value="">Age Range</option>
+                <option value="0">18 - 24</option>
+                <option value="1">25 - 34</option>
+                <option value="2">35 - 44</option>
+                <option value="3">45 - 54</option>
+                <option value="4">55 - 64</option>
+                <option value="5">54 - 74</option>
+                <option value="6">75+</option>
             </select>
             <select id="filterGender" name="gender" class="filter selector" title="Gender">
                 <option value="">Gender</option>
                 <option value="0">Male</option>
                 <option value="1">Female</option>
             </select>
-            <select id="filterRace" name="race_eth" class="filter selector" title="Race/Ethnicity">
-                <option value="">Race/Ethnicity</option>
+            <select id="filterRace" name="race" class="filter selector" title="Race">
+                <option value="">Race</option>
                 <option value="0">White</option>
                 <option value="1">Black</option>
-                <option value="2">Hispanic</option>
-                <option value="3">Other</option>
+                <option value="2">Asian</option>
+                <option value="3">Native Hawaiian / Pacific Islander</option>
+                <option value="4">American Indian / Alaska Native</option>
+                <option value="5">Other</option>
+                <option value="6">More than 1 race</option>
             </select>
-            <select id="filterRegion" name="region" class="filter selector" title="Region">
-                <option value="">Region</option>
-                <?php foreach (getRegions($year) as $region) {
-                    $region_code = $region-1;
-                    echo "<option value='$region_code'>Region $region</option>";
-                } ?>
+            <select id="filterEthnicity" name="ethnicity" class="filter selector" title="Ethnicity">
+                <option value="">Ethnicity</option>
+                <option value="0">Hispanic</option>
+                <option value="1">Non-Hispanic</option>
             </select><br>
             <div style="text-align: center;">
                 <input type="submit" value="Generate Graph" class="btn">
@@ -116,7 +118,7 @@ $categories = $ds->getCategories();
                 <div class="h3">
                     Data Table
                     <div class="tipButton" data-toggle="tooltip" data-placement="top"
-                         title="This table shows the number of students in each category. To save this data, click Export to CSV."></div>
+                         title="This table shows the number of people in each category. To save this data, click Export to CSV."></div>
                 </div>
                 <table id="datatable" class="datatable" style="margin: 0 auto; text-align: right; border:none"></table>
                 <div>No Response: <?= number_format($graph->noResponse);?></div>
@@ -131,7 +133,7 @@ $categories = $ds->getCategories();
         mainVariable: { code:null, question:null, summary:null, labels:null, counts:null, totals:null },
         groupingVariable: {},
         percentData: null, noResponse: null, sumTotal: null, sumPositives: null,
-        gradeFilter: null, genderFilter: null, raceFilter: null, regionFilter: null
+        ageFilter: null, genderFilter: null, raceFilter: null, ethnicityFilter: null
     }
     let filterString, year;
 
@@ -160,10 +162,10 @@ $categories = $ds->getCategories();
                 $('#question2').val(graph.groupingVariable.code);
                 $("#question2").trigger('change');
             }
-            $('#filterGrade').val(graph.gradeFilter);
+            $('#filterAge').val(graph.ageFilter);
             $('#filterGender').val(graph.genderFilter);
             $('#filterRace').val(graph.raceFilter);
-            $('#filterRegion').val(graph.regionFilter);
+            $('#filterEthnicity').val(graph.ethnicityFilter);
 
             createBarGraph(graph.percentData, graph.mainVariable.question, graph.groupingVariable?.question,
                 graph.groupingVariable?.labels || ['Total'], null, graph.mainVariable.summary);
@@ -175,7 +177,7 @@ $categories = $ds->getCategories();
                     graph.mainVariable.labels, graph.groupingVariable.labels, graph.mainVariable.counts,
                     graph.sumPositives, graph.mainVariable.totals, graph.sumTotal);
 
-            filterString = makeFilterString(graph.gradeFilter, graph.genderFilter, graph.raceFilter, graph.regionFilter);
+            filterString = makeFilterString(graph.ageFilter, graph.genderFilter, graph.raceFilter, graph.ethnicityFilter);
             let titleString = "<h4>"+graph.year+"</h4><h4>"+graph.mainVariable.question+"</h4>";
             if(graph.groupingVariable != null)
                 titleString += "<i>compared to</i><h4>" + graph.groupingVariable.question + "</h4>";

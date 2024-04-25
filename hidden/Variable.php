@@ -14,7 +14,7 @@ class Variable
     public bool $has_cutoff;    //Can the question be transformed into a binary Yes/No by setting a cutoff point
     public ?int $low_cutoff;     //Answers that are this value or higher are considered "Yes" in the cutoff. Null means no low cutoff point. Anything below the high cutoff is "Yes".
     public ?int $high_cutoff;    //Answers that are this value or lower are considered "Yes" in the cutoff. Null means no high cutoff point. Anything above the low cutoff is "Yes".
-    public ?int $total_cutoff;   //If null, all students are counted in the total (denominator). Otherwise, only students that answered this value or higher are included in the total.
+    public ?int $total_cutoff;   //If null, all respondents are counted in the total (denominator). Otherwise, only students that answered this value or higher are included in the total.
     public ?string $cutoff_summary;
     public ?string $cutoff_tooltip;
     /*public ?string $answer1, $answer2;

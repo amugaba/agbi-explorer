@@ -10,5 +10,5 @@ class HighlightGroup
 	public $labels;
 	public $tooltips;
 	public $explanation;
-    public $connector;//word used in tooltip, "X% of students reported [connector] [question]"
+    public $connector;//word used in tooltip, "X% of respondents reported [connector] [question]"
 }

@@ -25,7 +25,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="contact.php">Contact</a></li>
-                <li><a href="https://inys.indiana.edu/" target="_blank">Survey Home</a></li>
+                <li><a href="https://ipgap.indiana.edu/" target="_blank">IPGAP Home</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

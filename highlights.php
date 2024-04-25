@@ -17,7 +17,7 @@ $graph = Graph::createHighlightsGraph($year, $category, $group);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Highlights - Indiana Youth Survey</title>
+    <title>Highlights - Adult Gambling Behaviors Survey</title>
     <?php include_styles() ?>
     <?php include_styles();
     include_js(); ?>
@@ -34,38 +34,23 @@ $graph = Graph::createHighlightsGraph($year, $category, $group);
                     }?>
                 </select>
                 <select id="categorySelect" class="selector hidden-md hidden-lg hidden-xl" onchange="changeCategory(this.value)" style="margin-bottom: 15px; font-size: 18px; margin-left: 5px">
-                    <option value="1">Tobacco</option>
-                    <option value="2">Alcohol</option>
-                    <option value="3">Marijuana</option>
-                    <option value="4">Prescription Drugs</option>
-                    <option value="5">Other Drugs</option>
-                    <option value="6">Consequences from Substance Use</option>
-                    <option value="7">Access to Drugs</option>
-                    <option value="8">Gambling Behavior</option>
-                    <option value="9">Gambling Consequences</option>
-                    <option value="10">Mental Health</option>
-                    <option value="11">CTC Risk Factors</option>
-                    <option value="12">CTC Protective Factors</option>
-
+                    <option value="1">Gambling Related Experiences</option>
+                    <option value="2">Gambling Problems</option>
+                    <option value="3">Gambling Consequences</option>
+                    <option value="4">Services for Problem Gambling</option>
+                    <option value="5">Other Health Concerns</option>
                 </select>
             </div>
             <div class="hidden-sm hidden-xs">
                 <h2 class="shadowdeep">Select a Category
-                    <div class="tipButton"  data-toggle="tooltip" data-placement="top" title="Each category highlights several significant behaviors and shows the percentage of students that engaged in those behaviors."></div>
+                    <div class="tipButton"  data-toggle="tooltip" data-placement="top" title="Each category highlights several significant behaviors and shows the percentage of people that engaged in those behaviors."></div>
                 </h2>
                 <ul class="categories shadow hidden-sm">
-                    <li><a data-category="1">Tobacco</a></li>
-                    <li><a data-category="2">Alcohol</a></li>
-                    <li><a data-category="3">Marijuana</a></li>
-                    <li><a data-category="4">Prescription Drugs</a></li>
-                    <li><a data-category="5">Other Drugs</a></li>
-                    <li><a data-category="6">Consequences from Substance Use</a></li>
-                    <li><a data-category="7">Access to Drugs</a></li>
-                    <li><a data-category="8">Gambling Behavior</a></li>
-                    <li><a data-category="9">Gambling Consequences</a></li>
-                    <li><a data-category="10">Mental Health</a></li>
-                    <li><a data-category="11">CTC Risk Factors</a></li>
-                    <li><a data-category="12">CTC Protective Factors</a></li>
+                    <li><a data-category="1">Gambling Related Experiences</a></li>
+                    <li><a data-category="2">Gambling Problems</a></li>
+                    <li><a data-category="3">Gambling Consequences</a></li>
+                    <li><a data-category="4">Services for Problem Gambling</a></li>
+                    <li><a data-category="5">Other Health Concerns</a></li>
                 </ul>
             </div>
         </div>
@@ -78,13 +63,14 @@ $graph = Graph::createHighlightsGraph($year, $category, $group);
                 </div>
             </div>
 
-            <div id="grouping" class="groupbox hideIfNoGraph" style="width:550px; margin: 20px auto 0">
+            <div id="grouping" class="groupbox hideIfNoGraph" style="width:600px; margin: 20px auto 0">
                 <span style="font-weight: bold">Group data by:</span>
                 <input id="none" name="grouping" type="radio" value="" checked="checked"/><label for="none">None</label>
-                <span id="gradeButton"><input id="grade" name="grouping" type="radio" value="grade"/><label for="grade">Grade</label></span>
-                <input id="gender" name="grouping" type="radio" value="gender"/><label for="gender">Gender</label>
-                <input id="race_eth" name="grouping" type="radio" value="race_eth"/><label for="race_eth">Race/Ethnicity</label>
-                <div class="tipButton" style="margin:0 0 3px 17px"  data-toggle="tooltip" data-placement="top" title="You can separate students by grade, gender, or race/ethnicity to see how each group answered."></div>
+                <input id="Q_pers3" name="grouping" type="radio" value="Q_pers3"/><label for="Q_pers3">Age Range</label>
+                <input id="Q_pers9" name="grouping" type="radio" value="Q_pers9"/><label for="Q_pers9">Gender</label>
+                <input id="race" name="grouping" type="radio" value="race"/><label for="race">Race</label>
+                <input id="Q_pers10" name="grouping" type="radio" value="Q_pers10"/><label for="Q_pers10">Ethnicity</label>
+                <div class="tipButton" style="margin:0 0 3px 17px"  data-toggle="tooltip" data-placement="top" title="You can separate respondents by age, gender, race, or ethnicity to see how each group answered."></div>
             </div>
             <div id="chartDiv" style="width100%; height:<?php echo $graph->graphHeight;?>px;"></div>
             <div style="width: 100%; text-align: center" class="hideIfNoGraph">
@@ -95,7 +81,7 @@ $graph = Graph::createHighlightsGraph($year, $category, $group);
                 <div class="h3">
                     Data Table
                     <div class="tipButton" data-toggle="tooltip" data-placement="top"
-                         title="This table shows the number of students in each category. To save this data, click Export to CSV."></div>
+                         title="This table shows the number of people in each category. To save this data, click Export to CSV."></div>
                 </div>
                 <table id="datatable" class="datatable" style="margin: 0 auto; text-align: right; border:none">
                 </table>

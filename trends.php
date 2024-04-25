@@ -28,7 +28,7 @@ $categories[] = $old_category;
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Trends - Indiana Youth Survey</title>
+    <title>Trends - Adult Gambling Behaviors Survey</title>
     <?php include_styles();
     include_js(); ?>
 </head>
@@ -107,7 +107,7 @@ $categories[] = $old_category;
                 <div class="h3">
                     Data Table
                     <div class="tipButton" data-toggle="tooltip" data-placement="top"
-                         title="This table shows the number of students in each category. To save this data, click Export to CSV."></div>
+                         title="This table shows the number of people in each category. To save this data, click Export to CSV."></div>
                 </div>
                 <table id="datatable" class="datatable" style="margin: 0 auto; text-align: right; border:none">
                 </table>

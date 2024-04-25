@@ -84,7 +84,7 @@ class DataService {
     }
 
     /**
-     * Get all variables for the currently selected dataset and year
+     * Get all variables for the currently selected year
      * @return array
      * @throws Exception
      */
@@ -110,7 +110,7 @@ class DataService {
     }
 
     /**
-     * Get the categories that appear in the current dataset and year
+     * Get the categories that appear in the current year
      * @return Category[]
      * @throws Exception
      */
@@ -122,7 +122,7 @@ class DataService {
     }
 
     /**
-     * Get the weighted count of students that chose each answer for the given question.     *
+     * Get the weighted count of respondents that chose each answer for the given question.     *
      * @param MultiVariable $mainVar
      * @param MultiVariable $groupVar
      * @param string $filter
@@ -151,7 +151,7 @@ class DataService {
     }
 
     /**
-     * Get the total number of students that answered the given question (non-null response).
+     * Get the total number of respondents that answered the given question (non-null response).
      * @param MultiVariable $mainVar
      * @param MultiVariable $groupVar
      * @param string $filter
@@ -181,7 +181,7 @@ class DataService {
         }
     }
 
-    /**Get the number of students that selected an answer within the cutoff points.
+    /**Get the number of respondents that selected an answer within the cutoff points.
      * @param CutoffVariable $variable
      * @param Variable|null $groupVar
      * @param string $filter    */
@@ -213,7 +213,7 @@ class DataService {
         }
     }
 
-    /**Get the total number of students, subject to the total cutoff.
+    /**Get the total number of respondents, subject to the total cutoff.
      * @param CutoffVariable $variable
      * @param Variable|null $groupVar
      * @param string $filter    */
@@ -243,7 +243,7 @@ class DataService {
     }
 
     /**
-     * Get the total number of students that did not answer one of the questions (null response).
+     * Get the total number of respondents that did not answer one of the questions (null response).
      * @param MultiVariable $mainVar
      * @param MultiVariable $groupVar
      * @param string $filter
@@ -268,23 +268,23 @@ class DataService {
     }
 
     /**
-     * @param int|null $grade
+     * @param int|null $age
      * @param int|null $gender
-     * @param int|null $race_eth
-     * @param int|null $region
+     * @param int|null $race
+     * @param int|null $ethnicity
      * @return string
      */
-    public function createFilterString(?int $grade, ?int $gender, ?int $race_eth, ?int $region): string
+    public function createFilterString(?int $age, ?int $gender, ?int $race, ?int $ethnicity): string
     {
         $filter = " 1 ";
-        if ($grade !== null)
-            $filter .= " AND grade = ".$this->connection->real_escape_string($grade);
+        if ($age !== null)
+            $filter .= " AND Q_pers3 = ".$this->connection->real_escape_string($age);
         if ($gender !== null)
-            $filter .= " AND gender = ".$this->connection->real_escape_string($gender);
-        if ($race_eth !== null)
-            $filter .= " AND race_eth = ".$this->connection->real_escape_string($race_eth);
-        if ($region !== null)
-            $filter .= " AND region = ".$this->connection->real_escape_string($region);
+            $filter .= " AND Q_pers9 = ".$this->connection->real_escape_string($gender);
+        if ($race !== null)
+            $filter .= " AND Race = ".$this->connection->real_escape_string($race);
+        if ($ethnicity !== null)
+            $filter .= " AND Q_pers10 = ".$this->connection->real_escape_string($ethnicity);
         return $filter;
     }
 

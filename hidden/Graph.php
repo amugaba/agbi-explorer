@@ -7,10 +7,10 @@ class Graph
     public int $year;
     public Variable $mainVariable;
     public ?Variable $groupingVariable;
-    public ?int $gradeFilter;
-    public ?int $raceFilter;
+    public ?int $ageFilter;
     public ?int $genderFilter;
-    public ?int $regionFilter;
+    public ?int $raceFilter;
+    public ?int $ethnicityFilter;
     public array $percentData; //the data structure used by AmCharts to generate a graph
     public int $graphHeight; //height of the graph in pixels
     public int $noResponse; //number of surveys that didn't answer this question
@@ -60,18 +60,20 @@ class Graph
         for($i = 0; $i < count($highlightGroup->codes); $i++)
         {
             $variable = $ds->getCutoffVariable($highlightGroup->codes[$i]);
-
-            //for the CTC scales questions, remove the "High risk from" or "Low protection from" text
-            if($category === 11)
-                $variable->cutoff_summary = ucfirst(str_replace('High risk from ','',$variable->cutoff_summary));
-            if($category === 12)
-                $variable->cutoff_summary = ucfirst(str_replace('Low protection from ','',$variable->cutoff_summary));
-
             $variable->initializeCounts($graph->groupingVariable);
             $ds->getCutoffPositives($variable, $graph->groupingVariable, $filter);
             $ds->getCutoffTotal($variable, $graph->groupingVariable, $filter);
             $variable->calculatePercents();
             $variablesInGraph[] = $variable;
+
+            //if grouping by gender, remove all but male/female
+            if($groupCode == 'Q_pers9') //gender
+            {
+                $graph->groupingVariable->labels = array_slice($graph->groupingVariable->labels, 0, 2);
+                $variable->counts = array_slice($variable->counts, 0, 2);
+                $variable->totals = array_slice($variable->totals, 0, 2);
+                $variable->percents = array_slice($variable->percents, 0, 2);
+            }
         }
 
         //Create the data structure used by AmCharts for bar graphs
@@ -180,15 +182,15 @@ class Graph
      * @param int $year
      * @param string $mainVarCode
      * @param string|null $groupVarCode
-     * @param int|null $gradeFilter
-     * @param int|null $raceFilter
+     * @param int|null $ageFilter
      * @param int|null $genderFilter
-     * @param int|null $regionFilter
+     * @param int|null $raceFilter
+     * @param int|null $ethnicityFilter
      * @return Graph|null
      * @throws Exception
      */
-    public static function createExploreGraph(int $year, string $mainVarCode, ?string $groupVarCode, ?int $gradeFilter,
-                                              ?int $raceFilter, ?int $genderFilter, ?int $regionFilter) : ?Graph
+    public static function createExploreGraph(int $year, string $mainVarCode, ?string $groupVarCode, ?int $ageFilter,
+                                              ?int $genderFilter, ?int $raceFilter, ?int $ethnicityFilter) : ?Graph
     {
         $graph = new Graph($year);
         //check if those variables are part of this year's dataset
@@ -197,7 +199,7 @@ class Graph
 
         $graph->mainVariable = $graph->ds->getVariable($mainVarCode);
         $graph->groupingVariable = $graph->ds->getVariable($groupVarCode);
-        $filter = $graph->addFilter($gradeFilter, $raceFilter, $genderFilter, $regionFilter);
+        $filter = $graph->addFilter($ageFilter, $genderFilter, $raceFilter, $ethnicityFilter);
         $graph->mainVariable->initializeCounts($graph->groupingVariable);
 
         //Load data into main Variable
@@ -226,12 +228,12 @@ class Graph
         return $graph;
     }
 
-    private function addFilter(?int $gradeFilter, ?int $raceFilter, ?int $genderFilter, ?int $regionFilter) : string
+    private function addFilter(?int $ageFilter, ?int $genderFilter, ?int $raceFilter, ?int $ethnicityFilter) : string
     {
-        $this->gradeFilter = $gradeFilter;
-        $this->raceFilter = $raceFilter;
+        $this->ageFilter = $ageFilter;
         $this->genderFilter = $genderFilter;
-        $this->regionFilter = $regionFilter;
-        return $this->ds->createFilterString($gradeFilter, $genderFilter, $raceFilter, $regionFilter);
+        $this->raceFilter = $raceFilter;
+        $this->ethnicityFilter = $ethnicityFilter;
+        return $this->ds->createFilterString($ageFilter, $genderFilter, $raceFilter, $ethnicityFilter);
     }
 }

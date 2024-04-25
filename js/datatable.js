@@ -5,21 +5,21 @@
  */
 "use strict";
 
-function makeFilterString(grade, gender, race, region) {
-    let grades = ['6th grade','7th grade','8th grade','9th grade','10th grade','11th grade','12th grade'];
+function makeFilterString(age, gender, race, ethnicity) {
+    let ages = ['18 - 24','25 - 34','35 - 44','45 - 54','55 - 64','65 - 74','75+'];
     let genders = ['Male','Female'];
-    let races = ['White','Black','Hispanic','Other'];
-    let regions = ['Region 1','Region 2','Region 3','Region 4','Region 5','Region 6','Region 7','Region 8','Region 9','Region 10'];
+    let races = ['White','Black','Asian','Native Hawaiian / Pacific Islander', 'American Indian / Alaska Native', 'Other', 'More than 1 race'];
+    let ethnicities = ['Hispanic','Non-Hispanic'];
 
     let clauses = [];
-    if(grade!=null)
-        clauses.push("Grade = " + grades[grade]);
+    if(age!=null)
+        clauses.push("Age Range = " + ages[age]);
     if(gender!=null)
         clauses.push("Gender = " + genders[gender]);
     if(race!=null)
-        clauses.push("Race/Ethnicity = " + races[race]);
-    if(region!=null)
-        clauses.push("Region = " + regions[region]);
+        clauses.push("Race = " + races[race]);
+    if(ethnicity!=null)
+        clauses.push("Ethnicity = " + ethnicities[ethnicity]);
 
     if(clauses.length > 0)
         return "Filtered by " + clauses.join(", ");
@@ -31,10 +31,9 @@ function isIE() {
     return window.navigator.userAgent.indexOf("MSIE ") > 0 || !!window.navigator.userAgent.match(/Trident.*rv:11\./);
 }
 
-function getCSVHeader(mainTitle, groupTitle, year, dataset, filterString) {
-    let csv = "Indiana Youth Survey Data Explorer\r\n";
+function getCSVHeader(mainTitle, groupTitle, year, filterString) {
+    let csv = "Adult Gambling Behaviors Survey Data Explorer\r\n";
     csv += "Year: " + year + "\r\n";
-    csv += "\"Dataset: " + (dataset==='6th' ? '6th grade' : '7th-12th grades') + "\"\r\n";
     csv += '"' + mainTitle + '"\r\n';
     if(groupTitle != null)
         csv += '"Compared to Question: ' + groupTitle + '"\r\n';
@@ -45,14 +44,14 @@ function getCSVHeader(mainTitle, groupTitle, year, dataset, filterString) {
     return csv;
 }
 
-function simpleHighlightCSV(mainTitle, mainLabels, counts, totals, year, dataset) {
-    let csv = getCSVHeader("Highlights: " + mainTitle, null, year, dataset, null);
+function simpleHighlightCSV(mainTitle, mainLabels, counts, totals, year) {
+    let csv = getCSVHeader("Highlights: " + mainTitle, null, year, null);
 
     csv += ",Total Positive,Total Possible, % Positive\r\n";
 
     for(let i=0; i<mainLabels.length; i++)
     {
-        csv += mainLabels[i].replace("<br>"," ")+","+Math.round(counts[i][0]) + ",";
+        csv += "\"" + mainLabels[i].replace("<br>"," ")+"\","+Math.round(counts[i][0]) + ",";
         csv += Math.round(totals[i]) + ",";
         csv += (counts[i][0]/totals[i]*100).toFixed(1) + "%\r\n";
     }
@@ -60,14 +59,14 @@ function simpleHighlightCSV(mainTitle, mainLabels, counts, totals, year, dataset
     tableToExcel(csv);
 }
 
-function simpleExplorerCSV(mainTitle, mainLabels, counts, totals, year, dataset, filterString) {
-    let csv = getCSVHeader("Question: " + mainTitle, null, year, dataset, filterString);
+function simpleExplorerCSV(mainTitle, mainLabels, counts, totals, year, filterString) {
+    let csv = getCSVHeader("Question: " + mainTitle, null, year, filterString);
 
     csv += ",Total,% Total\r\n";
 
     for(let i=0; i<mainLabels.length; i++)
     {
-        csv += mainLabels[i].replace("<br>"," ")+","+Math.round(counts[i][0]) + ",";
+        csv += "\"" + mainLabels[i].replace("<br>"," ")+"\","+Math.round(counts[i][0]) + ",";
         csv += (counts[i][0]/totals[0]*100).toFixed(1) + "%\r\n";
     }
     csv += "Total," + Math.round(totals[0]) + ",100%";
@@ -75,8 +74,8 @@ function simpleExplorerCSV(mainTitle, mainLabels, counts, totals, year, dataset,
     tableToExcel(csv);
 }
 
-function simpleTrendCSV(mainTitle, labels, xAxisLabels, percents, year, dataset, filterString, xAxisLabel) {
-    let csv = getCSVHeader(mainTitle, null, year, dataset, filterString);
+function simpleTrendCSV(mainTitle, labels, xAxisLabels, percents, year, filterString, xAxisLabel) {
+    let csv = getCSVHeader(mainTitle, null, year, filterString);
 
     csv += ","+xAxisLabel+"\r\n";
     for(let i=0; i<xAxisLabels.length; i++){
@@ -96,8 +95,8 @@ function simpleTrendCSV(mainTitle, labels, xAxisLabels, percents, year, dataset,
     tableToExcel(csv);
 }
 
-function crosstabHighlightCSV(mainTitle, groupTitle, mainLabels, groupLabels, counts, sumPositives, totals, year, dataset) {
-    let csv = getCSVHeader("Highlights: " + mainTitle, groupTitle, year, dataset, null);
+function crosstabHighlightCSV(mainTitle, groupTitle, mainLabels, groupLabels, counts, sumPositives, totals, year) {
+    let csv = getCSVHeader("Highlights: " + mainTitle, groupTitle, year, null);
 
     csv += ',,"'+groupTitle+'"\r\n';
     csv += ",,"+groupLabels.join(",");
@@ -116,8 +115,8 @@ function crosstabHighlightCSV(mainTitle, groupTitle, mainLabels, groupLabels, co
     tableToExcel(csv);
 }
 
-function crosstabExplorerCSV(mainTitle, groupTitle, mainLabels, groupLabels, counts, totals, groupTotals, sumTotal, filterString, year, dataset) {
-    let csv = getCSVHeader("Question: " + mainTitle, groupTitle, year, dataset, filterString);
+function crosstabExplorerCSV(mainTitle, groupTitle, mainLabels, groupLabels, counts, totals, groupTotals, sumTotal, filterString, year) {
+    let csv = getCSVHeader("Question: " + mainTitle, groupTitle, year, filterString);
 
     csv += ',,"'+groupTitle+'"\r\n';
     csv += ",,"+groupLabels.join(",");

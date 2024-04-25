@@ -34,7 +34,7 @@ function createBarGraph(percentData, mainTitle, groupTitle, groupLabels, tooltip
                 event.chart.balloon.borderColor = "#70a1c2";
                 event.chart.balloon.followCursor(true);
                 event.chart.balloon.changeColor(event.serialDataItem.dataContext.color);
-                event.chart.balloon.showBalloon("The % of students who reported " + tooltips[percentData.indexOf(event.serialDataItem.dataContext)]);
+                event.chart.balloon.showBalloon("The % of people who reported " + tooltips[percentData.indexOf(event.serialDataItem.dataContext)]);
             });
             chart.categoryAxis.addListener("rollOutItem", function (event) {
                 event.chart.balloon.hide();
@@ -62,13 +62,13 @@ function createBarGraph(percentData, mainTitle, groupTitle, groupLabels, tooltip
             if(tooltips != null) {
                 graph.balloonFunction = function (graphDataItem, graph) {
                     let title = graph.title === "Total" ? "" : graph.title;
-                    return graphDataItem.values.value.toFixed(1) +"% of "+title+" students reported " + tooltips[graphDataItem.index];
+                    return graphDataItem.values.value.toFixed(1) +"% of "+title+" people reported " + tooltips[graphDataItem.index];
                 };
             }
             else if(groupTitle == null)
-                graph.balloonText = "[[value]]% of students answered '[[category]]' to '"+mainTitle+"'";
+                graph.balloonText = "[[value]]% of people answered '[[category]]' to '"+mainTitle+"'";
             else
-                graph.balloonText = "[[value]]% of students who answered <i>'"+graph.title+"'</i> to '"+groupTitle+"' also answered <i>'[[category]]'</i> to '"+mainTitle+"'";
+                graph.balloonText = "[[value]]% of people who answered <i>'"+graph.title+"'</i> to '"+groupTitle+"' also answered <i>'[[category]]'</i> to '"+mainTitle+"'";
             graph.lineAlpha = 0;
             graph.fillColors = fillColors[i];
             graph.fillAlphas = 1;
@@ -230,10 +230,10 @@ function createLineChart(percentData, labels, xAxisLabel) {
     });
 }
 
-function exportToPDF(chart, mainTitle, groupTitle, year, dataset, filterString) {
+function exportToPDF(chart, mainTitle, groupTitle, year, filterString) {
     let exportContent = [
         {
-            text: "Indiana Youth Survey "+year,
+            text: "Adult Gambling Behaviors Survey "+year,
             style: ["header"]
         },
         {
@@ -249,12 +249,6 @@ function exportToPDF(chart, mainTitle, groupTitle, year, dataset, filterString) 
                 text: groupTitle,
                 style: ["subheader"]
             });
-    }
-    if(dataset != null) {
-        exportContent.push({
-            text: "Dataset: " + (dataset==='6th' ? '6th grade' : '7th-12th grade'),
-            style: ["description"]
-        });
     }
     if(filterString != null) {
         exportContent.push({

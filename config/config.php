@@ -21,7 +21,7 @@ else {
     define("DEBUG", false);
 }
 
-define("PAGE_TITLE", "Indiana Youth Survey Data Explorer");
+define("PAGE_TITLE", "Adult Gambling Behaviors Survey Data Explorer");
 if(DEBUG) {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
@@ -83,22 +83,7 @@ function getCurrentYear(): int
 }
 function getAllYears(): array
 {
-    return [2016,2017,2018,2020,2022];
-}
-
-/**
- * Get state regions for the given survey year
- * @param int $year
- * @return int[]
- */
-function getRegions(int $year): array
-{
-    if($year < 2020) {
-        return [1,2,3,4,5,6,7,8];
-    }
-    else {
-        return [1,2,3,4,5,6,7,8,9,10];
-    }
+    return [2022];
 }
 
 /**
