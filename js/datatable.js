@@ -150,13 +150,13 @@ function tableToExcel(csv) {
     if(!isIE()) {
         let blob = new Blob([csv],{type: "text/csv;charset=utf-8;"});
         if (navigator.msSaveBlob) { // IE 10+
-            navigator.msSaveBlob(blob, "inys-data.csv")
+            navigator.msSaveBlob(blob, "agbi-data.csv")
         } else {
             csv = "data:text/csv;charset=utf-8," + csv;
             let encodedUri = encodeURI(csv);
             let link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "inys-data.csv");
+            link.setAttribute("download", "agbi-data.csv");
             document.body.appendChild(link); // Required for FF
             link.click();
         }
@@ -164,12 +164,12 @@ function tableToExcel(csv) {
     else {
         let blob = new Blob([csv],{type: "text/csv;charset=utf-8;"});
         if (navigator.msSaveBlob) { // IE 10+
-            navigator.msSaveBlob(blob, "inys-data.csv")
+            navigator.msSaveBlob(blob, "agbi-data.csv")
         } else {
             let IEwindow = window.open();
             IEwindow.document.write('sep=,\r\n' + csv);
             IEwindow.document.close();
-            IEwindow.document.execCommand('SaveAs', true, "inys-data.csv");
+            IEwindow.document.execCommand('SaveAs', true, "agbi-data.csv");
             IEwindow.close();
         }
     }

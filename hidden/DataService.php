@@ -96,6 +96,32 @@ class DataService {
     }
 
     /**
+     * Get all variables for the currently selected year
+     * @return array
+     * @throws Exception
+     */
+    public function getTrendVariables() : array
+    {
+        $result = $this->query("SELECT code, question, summary, category FROM variables
+            WHERE has_cutoff=1 AND year=? ORDER BY id", [$this->year]);
+        return $this->fetchAllObjects($result, MultiVariable::class);
+    }
+
+    /**
+     * Get all variables in this trend, one for each year
+     * @param string $var_code
+     * @return CutoffVariable[]
+     * @throws Exception
+     */
+    public function getVariablesInTrend(string $var_code): array
+    {
+        $result = $this->query("SELECT id, year, code, question, cutoff_summary, cutoff_tooltip, category, low_cutoff, high_cutoff, total_cutoff 
+            FROM variables WHERE code=? ORDER BY year",
+            [$var_code]);
+        return $this->fetchAllObjects($result, CutoffVariable::class);
+    }
+
+    /**
      * Was this variable collected this survey year?
      * @param $code string
      * @return bool
@@ -117,6 +143,18 @@ class DataService {
     public function getCategories(): array {
         $result = $this->query("SELECT * FROM categories 
             WHERE id IN (SELECT category FROM variables WHERE year=? GROUP BY category) 
+            ORDER BY display_order", [$this->year]);
+        return $this->fetchAllObjects($result, Category::class);
+    }
+
+    /**
+     * Get the categories that appear in the current year
+     * @return Category[]
+     * @throws Exception
+     */
+    public function getTrendCategories(): array {
+        $result = $this->query("SELECT * FROM categories 
+            WHERE id IN (SELECT category FROM variables WHERE year=? AND has_cutoff=1 GROUP BY category) 
             ORDER BY display_order", [$this->year]);
         return $this->fetchAllObjects($result, Category::class);
     }

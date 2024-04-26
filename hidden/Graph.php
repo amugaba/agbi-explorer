@@ -109,37 +109,25 @@ class Graph
         return $graph;
     }
 
-    public static function createTrendsGraph(?int $trendGroup, ?string $trendName, ?int $gradeFilter,
-                                              ?int $raceFilter, ?int $genderFilter, ?int $regionFilter) : ?Graph
+    public static function createTrendsGraph(string $mainVarCode, ?int $ageFilter, ?int $genderFilter, ?int $raceFilter, ?int $ethnicityFilter) : ?Graph
     {
         $graph = new Graph(getCurrentYear());
         $ds = DataService::getInstance(getCurrentYear());
 
         //Set up variables (either single question or group)
         $trendsInGraph = [];
-        if($trendName != null) {
-            $trend = new Trend($trendName);
-            $graph->trendName = $trendName;
-            $trend->addVariables($ds->getVariablesInTrend($trendName));
-            $graph->title = end($trend->variablesByYear)->cutoff_summary; //use most recent year's info for title
-            $trendsInGraph[] = $trend;
-        }
-        else {
-            $groupCodes = getGroupCodes($trendGroup);
-            $graph->trendGroup = $trendGroup;
-            $graph->title = "Trend Group: " . getGroupName($trendGroup);
-            foreach ($groupCodes as $code) {
-                $trend = new Trend($code);
-                $trend->addVariables($ds->getVariablesInTrend($code));
-                $trendsInGraph[] = $trend;
-            }
-        }
+        $trend = new Trend($mainVarCode);
+        $graph->trendName = $mainVarCode;
+        $trend->addVariables($ds->getVariablesInTrend($mainVarCode));
+        $graph->title = end($trend->variablesByYear)->cutoff_summary; //use most recent year's info for title
+        $trendsInGraph[] = $trend;
+
 
         //Get data for each year
         $years = getAllYears(); //from config.php
         $graph->yearsInGraph = [];
         $graph->percentData = [];
-        $filter = $graph->addFilter($gradeFilter, $raceFilter, $genderFilter, $regionFilter);
+        $filter = $graph->addFilter($ageFilter, $genderFilter, $raceFilter, $ethnicityFilter);
 
         //for each year, for each var
         foreach ($years as $year) {
@@ -172,7 +160,6 @@ class Graph
         $tooltips = [];
         foreach ($trendsInGraph as $trend) {
             $graph->labels[] = end($trend->variablesByYear)->cutoff_summary;
-            $graph->notes .= getQuestionNote($variable->code);
         }
         return $graph;
     }

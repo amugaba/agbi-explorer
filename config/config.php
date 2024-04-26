@@ -11,8 +11,8 @@ if(strpos($_SERVER['HTTP_HOST'], "localhost") !== false) {
     define("DEBUG", true);
 }
 else if(strpos($_SERVER['HTTP_HOST'], "angstrom") !== false) {
-    define("ROOT_PATH", $_SERVER['DOCUMENT_ROOT'] . "/inys/");
-    define("HTTP_ROOT", "https://" . $_SERVER['HTTP_HOST'] . "/inys/");
+    define("ROOT_PATH", $_SERVER['DOCUMENT_ROOT'] . "/agbi/");
+    define("HTTP_ROOT", "https://" . $_SERVER['HTTP_HOST'] . "/agbi/");
     define("DEBUG", true);
 }
 else {

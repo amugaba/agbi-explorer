@@ -294,7 +294,7 @@ function exportToPDF(chart, mainTitle, groupTitle, year, filterString) {
             function( data ) {
                 pdf_layout.images["image_1"] = data;
                 this.toPDF(pdf_layout, function (data) {
-                    this.download(data, this.defaults.formats.PDF.mimeType, "inys-graph.pdf");
+                    this.download(data, this.defaults.formats.PDF.mimeType, "agbi-graph.pdf");
                 });
             });
     });

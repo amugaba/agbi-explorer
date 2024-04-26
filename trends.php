@@ -1,16 +1,15 @@
 <?php
 require_once "config/config.php";
 require_once 'hidden/DataService.php';
-require_once 'hidden/TrendGroups.php';
 
 //Get the YEAR and then instantiate the data service
 $year = getInput('year') ? intval(getInput('year')) : getCurrentYear();
 $ds = DataService::getInstance($year);
 $graph = null;
 
-if(getInput('group') != null || getInput('question') != null) {
-    $graph = Graph::createTrendsGraph(getInput('group'), getInput('question'), getInput('grade'),
-        getInput('race_eth'), getInput('gender'), getInput('region'));
+if(getInput('question') != null) {
+    $graph = Graph::createTrendsGraph(getInput('question'), getInput('age'),
+        getInput('gender'), getInput('race'), getInput('ethnicity'));
 }
 
 //Get variables and categories
@@ -18,10 +17,6 @@ $cat = getInput('cat');
 $trendGroup = getInput('group');
 $variables = $ds->getTrendVariables();
 $categories = $ds->getTrendCategories();
-$old_category = new Category();
-$old_category->name = "Questions from Past Years";
-$old_category->id = 99;
-$categories[] = $old_category;
 ?>
 
 <!DOCTYPE html>
@@ -49,26 +44,35 @@ $categories[] = $old_category;
                     <option value="" selected="selected">Select a question</option>
                 </select><br>
                 <label class="shadow">2. (Optional) Filter data by:</label>
-                <select id="filterGrade" name="grade" class="filter selector hide6" title="Grade">
-                    <option value="">Grade</option>
-                    <option value="1">7th</option>
-                    <option value="2">8th</option>
-                    <option value="3">9th</option>
-                    <option value="4">10th</option>
-                    <option value="5">11th</option>
-                    <option value="6">12th</option>
+                <select id="filterAge" name="age" class="filter selector hide6" title="Age Range">
+                    <option value="">Age Range</option>
+                    <option value="0">18 - 24</option>
+                    <option value="1">25 - 34</option>
+                    <option value="2">35 - 44</option>
+                    <option value="3">45 - 54</option>
+                    <option value="4">55 - 64</option>
+                    <option value="5">54 - 74</option>
+                    <option value="6">75+</option>
                 </select>
                 <select id="filterGender" name="gender" class="filter selector" title="Gender">
                     <option value="">Gender</option>
                     <option value="0">Male</option>
                     <option value="1">Female</option>
                 </select>
-                <select id="filterRace" name="race_eth" class="filter selector" title="Race/Ethnicity">
-                    <option value="">Race/Ethnicity</option>
+                <select id="filterRace" name="race" class="filter selector" title="Race">
+                    <option value="">Race</option>
                     <option value="0">White</option>
                     <option value="1">Black</option>
-                    <option value="2">Hispanic</option>
-                    <option value="3">Other</option>
+                    <option value="2">Asian</option>
+                    <option value="3">Native Hawaiian / Pacific Islander</option>
+                    <option value="4">American Indian / Alaska Native</option>
+                    <option value="5">Other</option>
+                    <option value="6">More than 1 race</option>
+                </select>
+                <select id="filterEthnicity" name="ethnicity" class="filter selector" title="Ethnicity">
+                    <option value="">Ethnicity</option>
+                    <option value="0">Hispanic</option>
+                    <option value="1">Non-Hispanic</option>
                 </select><br>
                 <div style="text-align: center;">
                     <input type="submit" value="Generate Graph" class="btn">
@@ -122,7 +126,7 @@ $categories[] = $old_category;
         mainVariable: { code:null, question:null, summary:null, labels:null, counts:null, totals:null },
         groupingVariable: {},
         percentData: null, noResponse: null, sumTotal: null, sumPositives: null,
-        gradeFilter: null, genderFilter: null, raceFilter: null, regionFilter: null,
+        ageFilter: null, genderFilter: null, raceFilter: null, ethnicityFilter: null,
         trendName: null, trendGroup: null, yearsInGraph: null
     }
     let filterString, year;
@@ -149,16 +153,16 @@ $categories[] = $old_category;
                 groupSelect.val(graph.trendGroup);
             }
 
-            $('#filterGrade').val(graph.gradeFilter);
+            $('#filterAge').val(graph.ageFilter);
             $('#filterGender').val(graph.genderFilter);
             $('#filterRace').val(graph.raceFilter);
-            $('#filterRegion').val(graph.regionFilter);
+            $('#filterEthnicity').val(graph.ethnicityFilter);
 
-            if(graph.yearsInGraph.length === 1) {
+            /*if(graph.yearsInGraph.length === 1) {
                 $(".hideIfNoGraph").hide();
                 $(".showIfOneYearData").show();
             }
-            else if(graph.labels.length === 0) {
+            else*/ if(graph.labels.length === 0) {
                 $(".hideIfNoGraph").hide();
                 $(".showIfNoData").show();
             }
@@ -166,7 +170,7 @@ $categories[] = $old_category;
                 createLineChart(graph.percentData, graph.labels);
             }
 
-            filterString = makeFilterString(graph.gradeFilter, graph.genderFilter, graph.raceFilter, graph.regionFilter);
+            filterString = makeFilterString(graph.ageFilter, graph.genderFilter, graph.raceFilter, graph.ethnicityFilter);
             let titleString = "<h4>"+graph.title+"</h4>";
             if(filterString != null)
                 titleString += "<i>" + filterString + "</i>";
