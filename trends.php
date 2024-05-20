@@ -9,7 +9,7 @@ $graph = null;
 
 if(getInput('question') != null) {
     $graph = Graph::createTrendsGraph(getInput('question'), getInput('age'),
-        getInput('gender'), getInput('race'), getInput('ethnicity'));
+        getInput('gender'), getInput('race'), getInput('income'));
 }
 
 //Get variables and categories
@@ -62,17 +62,18 @@ $categories = $ds->getTrendCategories();
                 <select id="filterRace" name="race" class="filter selector" title="Race">
                     <option value="">Race</option>
                     <option value="0">White</option>
-                    <option value="1">Black</option>
-                    <option value="2">Asian</option>
-                    <option value="3">Native Hawaiian / Pacific Islander</option>
-                    <option value="4">American Indian / Alaska Native</option>
-                    <option value="5">Other</option>
-                    <option value="6">More than 1 race</option>
+                    <option value="1">Black or African American</option>
+                    <option value="2">Other race</option>
                 </select>
-                <select id="filterEthnicity" name="ethnicity" class="filter selector" title="Ethnicity">
-                    <option value="">Ethnicity</option>
-                    <option value="0">Hispanic</option>
-                    <option value="1">Non-Hispanic</option>
+                <select id="filterIncome" name="income" class="filter selector" title="Income">
+                    <option value="">Income</option>
+                    <option value="0">Less than $15,000</option>
+                    <option value="1">$15,000 to $34,999</option>
+                    <option value="2">$35,000 to $49,999</option>
+                    <option value="3">$50,000 to $74,999</option>
+                    <option value="4">$75,000 to $99,999</option>
+                    <option value="5">$100,000 to $149,999</option>
+                    <option value="6">$150,000 or more</option>
                 </select><br>
                 <div style="text-align: center;">
                     <input type="submit" value="Generate Graph" class="btn">
@@ -126,7 +127,7 @@ $categories = $ds->getTrendCategories();
         mainVariable: { code:null, question:null, summary:null, labels:null, counts:null, totals:null },
         groupingVariable: {},
         percentData: null, noResponse: null, sumTotal: null, sumPositives: null,
-        ageFilter: null, genderFilter: null, raceFilter: null, ethnicityFilter: null,
+        ageFilter: null, genderFilter: null, raceFilter: null, incomeFilter: null,
         trendName: null, trendGroup: null, yearsInGraph: null
     }
     let filterString, year;
@@ -156,7 +157,7 @@ $categories = $ds->getTrendCategories();
             $('#filterAge').val(graph.ageFilter);
             $('#filterGender').val(graph.genderFilter);
             $('#filterRace').val(graph.raceFilter);
-            $('#filterEthnicity').val(graph.ethnicityFilter);
+            $('#filterIncome').val(graph.incomeFilter);
 
             /*if(graph.yearsInGraph.length === 1) {
                 $(".hideIfNoGraph").hide();
@@ -170,7 +171,7 @@ $categories = $ds->getTrendCategories();
                 createLineChart(graph.percentData, graph.labels);
             }
 
-            filterString = makeFilterString(graph.ageFilter, graph.genderFilter, graph.raceFilter, graph.ethnicityFilter);
+            filterString = makeFilterString(graph.ageFilter, graph.genderFilter, graph.raceFilter, graph.incomeFilter);
             let titleString = "<h4>"+graph.title+"</h4>";
             if(filterString != null)
                 titleString += "<i>" + filterString + "</i>";

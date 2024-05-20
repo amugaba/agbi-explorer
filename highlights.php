@@ -68,9 +68,9 @@ $graph = Graph::createHighlightsGraph($year, $category, $group);
                 <input id="none" name="grouping" type="radio" value="" checked="checked"/><label for="none">None</label>
                 <input id="Q_pers3" name="grouping" type="radio" value="Q_pers3"/><label for="Q_pers3">Age Range</label>
                 <input id="Q_pers9" name="grouping" type="radio" value="Q_pers9"/><label for="Q_pers9">Gender</label>
-                <input id="race" name="grouping" type="radio" value="race"/><label for="race">Race</label>
-                <input id="Q_pers10" name="grouping" type="radio" value="Q_pers10"/><label for="Q_pers10">Ethnicity</label>
-                <div class="tipButton" style="margin:0 0 3px 17px"  data-toggle="tooltip" data-placement="top" title="You can separate respondents by age, gender, race, or ethnicity to see how each group answered."></div>
+                <input id="race_merge" name="grouping" type="radio" value="race_merge"/><label for="race_merge">Race</label>
+                <input id="Q_pers7" name="grouping" type="radio" value="Q_pers7"/><label for="Q_pers7">Income</label>
+                <div class="tipButton" style="margin:0 0 3px 17px"  data-toggle="tooltip" data-placement="top" title="You can separate respondents by age, gender, race, or income to see how each group answered."></div>
             </div>
             <div id="chartDiv" style="width100%; height:<?php echo $graph->graphHeight;?>px;"></div>
             <div style="width: 100%; text-align: center" class="hideIfNoGraph">

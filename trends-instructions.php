@@ -19,7 +19,7 @@
     <h4>2. Additional Options</h4>
     <div class="row">
         <ul>
-            <li>You optionally can filter the data by selecting a grade, gender, or race/ethnicity in the last row. This will show only data for the selected group(s).</li>
+            <li>You optionally can filter the data by selecting a grade, gender, race, or income in the last row. This will show only data for the selected group(s).</li>
             <ul><li>Please note that Indiana's state regions changed between 2018 and 2020. As such, you cannot filter trends by region.</li></ul>
         </ul>
     </div>

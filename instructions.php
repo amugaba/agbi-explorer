@@ -15,7 +15,7 @@
         <ul>
             <li>You optionally can select a second question in the second row. This will compare the first question to the second one.</li>
                 <ul><li>For instance, you can explore how cigarette use varies with grade level.</li></ul>
-            <li>You can filter the data by selecting a grade, gender, race/ethnicity, or region in the last row. This will show only data for the selected group(s).</li>
+            <li>You can filter the data by selecting a grade, gender, race, or income in the last row. This will show only data for the selected group(s).</li>
                 <ul><li>Please note that Indiana's state regions changed between 2018 and 2020, so regions are not comparable across years.</li></ul>
         </ul>
     </div>

@@ -309,10 +309,10 @@ class DataService {
      * @param int|null $age
      * @param int|null $gender
      * @param int|null $race
-     * @param int|null $ethnicity
+     * @param int|null $income
      * @return string
      */
-    public function createFilterString(?int $age, ?int $gender, ?int $race, ?int $ethnicity): string
+    public function createFilterString(?int $age, ?int $gender, ?int $race, ?int $income): string
     {
         $filter = " 1 ";
         if ($age !== null)
@@ -320,9 +320,9 @@ class DataService {
         if ($gender !== null)
             $filter .= " AND Q_pers9 = ".$this->connection->real_escape_string($gender);
         if ($race !== null)
-            $filter .= " AND Race = ".$this->connection->real_escape_string($race);
-        if ($ethnicity !== null)
-            $filter .= " AND Q_pers10 = ".$this->connection->real_escape_string($ethnicity);
+            $filter .= " AND race_merge = ".$this->connection->real_escape_string($race);
+        if ($income !== null)
+            $filter .= " AND Q_pers7 = ".$this->connection->real_escape_string($income);
         return $filter;
     }
 

@@ -10,7 +10,7 @@ class Graph
     public ?int $ageFilter;
     public ?int $genderFilter;
     public ?int $raceFilter;
-    public ?int $ethnicityFilter;
+    public ?int $incomeFilter;
     public array $percentData; //the data structure used by AmCharts to generate a graph
     public int $graphHeight; //height of the graph in pixels
     public int $noResponse; //number of surveys that didn't answer this question
@@ -109,7 +109,7 @@ class Graph
         return $graph;
     }
 
-    public static function createTrendsGraph(string $mainVarCode, ?int $ageFilter, ?int $genderFilter, ?int $raceFilter, ?int $ethnicityFilter) : ?Graph
+    public static function createTrendsGraph(string $mainVarCode, ?int $ageFilter, ?int $genderFilter, ?int $raceFilter, ?int $incomeFilter) : ?Graph
     {
         $graph = new Graph(getCurrentYear());
         $ds = DataService::getInstance(getCurrentYear());
@@ -127,7 +127,7 @@ class Graph
         $years = getAllYears(); //from config.php
         $graph->yearsInGraph = [];
         $graph->percentData = [];
-        $filter = $graph->addFilter($ageFilter, $genderFilter, $raceFilter, $ethnicityFilter);
+        $filter = $graph->addFilter($ageFilter, $genderFilter, $raceFilter, $incomeFilter);
 
         //for each year, for each var
         foreach ($years as $year) {
@@ -172,12 +172,12 @@ class Graph
      * @param int|null $ageFilter
      * @param int|null $genderFilter
      * @param int|null $raceFilter
-     * @param int|null $ethnicityFilter
+     * @param int|null $incomeFilter
      * @return Graph|null
      * @throws Exception
      */
-    public static function createExploreGraph(int $year, string $mainVarCode, ?string $groupVarCode, ?int $ageFilter,
-                                              ?int $genderFilter, ?int $raceFilter, ?int $ethnicityFilter) : ?Graph
+    public static function createExploreGraph(int  $year, string $mainVarCode, ?string $groupVarCode, ?int $ageFilter,
+                                              ?int $genderFilter, ?int $raceFilter, ?int $incomeFilter) : ?Graph
     {
         $graph = new Graph($year);
         //check if those variables are part of this year's dataset
@@ -186,7 +186,7 @@ class Graph
 
         $graph->mainVariable = $graph->ds->getVariable($mainVarCode);
         $graph->groupingVariable = $graph->ds->getVariable($groupVarCode);
-        $filter = $graph->addFilter($ageFilter, $genderFilter, $raceFilter, $ethnicityFilter);
+        $filter = $graph->addFilter($ageFilter, $genderFilter, $raceFilter, $incomeFilter);
         $graph->mainVariable->initializeCounts($graph->groupingVariable);
 
         //Load data into main Variable
@@ -215,12 +215,12 @@ class Graph
         return $graph;
     }
 
-    private function addFilter(?int $ageFilter, ?int $genderFilter, ?int $raceFilter, ?int $ethnicityFilter) : string
+    private function addFilter(?int $ageFilter, ?int $genderFilter, ?int $raceFilter, ?int $incomeFilter) : string
     {
         $this->ageFilter = $ageFilter;
         $this->genderFilter = $genderFilter;
         $this->raceFilter = $raceFilter;
-        $this->ethnicityFilter = $ethnicityFilter;
-        return $this->ds->createFilterString($ageFilter, $genderFilter, $raceFilter, $ethnicityFilter);
+        $this->incomeFilter = $incomeFilter;
+        return $this->ds->createFilterString($ageFilter, $genderFilter, $raceFilter, $incomeFilter);
     }
 }

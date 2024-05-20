@@ -5,11 +5,11 @@
  */
 "use strict";
 
-function makeFilterString(age, gender, race, ethnicity) {
+function makeFilterString(age, gender, race, income) {
     let ages = ['18 - 24','25 - 34','35 - 44','45 - 54','55 - 64','65 - 74','75+'];
     let genders = ['Male','Female'];
-    let races = ['White','Black','Asian','Native Hawaiian / Pacific Islander', 'American Indian / Alaska Native', 'Other', 'More than 1 race'];
-    let ethnicities = ['Hispanic','Non-Hispanic'];
+    let races = ['White','Black or African American','Other race'];
+    let incomes = ['Less than $15,000','$15,000 to $34,999','$35,000 to $49,999','$50,000 to $74,999','$75,000 to $99,999','$100,000 to $149,999','$150,000 or more'];
 
     let clauses = [];
     if(age!=null)
@@ -18,8 +18,8 @@ function makeFilterString(age, gender, race, ethnicity) {
         clauses.push("Gender = " + genders[gender]);
     if(race!=null)
         clauses.push("Race = " + races[race]);
-    if(ethnicity!=null)
-        clauses.push("Ethnicity = " + ethnicities[ethnicity]);
+    if(income!=null)
+        clauses.push("Income = " + incomes[income]);
 
     if(clauses.length > 0)
         return "Filtered by " + clauses.join(", ");
