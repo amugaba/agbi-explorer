@@ -13,7 +13,7 @@
  * percents = [33.3]
  * totals = (is this even used?)
  *
- * If the Variable was separated by a grouping question, like "What grade are you in?" by "Gender", the data would be:
+ * If the Variable was crosstabulated by a grouping question, like "What grade are you in?" by "Gender", the data would be:
  * counts = [6500, 6500]
  * percents = [16.7, 16.7] (since there is a value for each group)
  */

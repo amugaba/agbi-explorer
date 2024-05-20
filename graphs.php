@@ -53,7 +53,7 @@ $categories = $ds->getCategories();
             <select id="question1" name="q1" class="searchbox">
                 <option value="" selected="selected">Select a question</option>
             </select><br>
-            <label class="shadow" for="question2">2. (Optional) Separate data by another question:</label>
+            <label class="shadow" for="question2">2. (Optional) Crosstabulate data by another question:</label>
             <select id="category2" name="cat2" style="width:160px" class="selector" title="Select category to filter secondary question">
                 <option value="" selected="selected">All categories</option>
                 <?php foreach ($categories as $category) {
@@ -181,9 +181,9 @@ $categories = $ds->getCategories();
             filterString = makeFilterString(graph.ageFilter, graph.genderFilter, graph.raceFilter, graph.incomeFilter);
             let titleString = "<h4>"+graph.year+"</h4><h4>"+graph.mainVariable.question+"</h4>";
             if(graph.groupingVariable != null)
-                titleString += "<i>compared to</i><h4>" + graph.groupingVariable.question + "</h4>";
+                titleString += "<h4><i>compared to</i></h4><h4>" + graph.groupingVariable.question + "</h4>";
             if(filterString != null)
-                titleString += "<i>" + filterString + "</i>";
+                titleString += "<h4><i>" + filterString + "</i></h4>";
             $("#graphTitle").html(titleString);
         }
 
