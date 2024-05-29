@@ -5,6 +5,10 @@
  */
 "use strict";
 
+function roundValue(value) {
+    return value.toFixed(2);
+}
+
 function makeFilterString(age, gender, race, income) {
     let ages = ['18 - 24','25 - 34','35 - 44','45 - 54','55 - 64','65 - 74','75+'];
     let genders = ['Male','Female'];
@@ -51,8 +55,8 @@ function simpleHighlightCSV(mainTitle, mainLabels, counts, totals, year) {
 
     for(let i=0; i<mainLabels.length; i++)
     {
-        csv += "\"" + mainLabels[i].replace("<br>"," ")+"\","+Math.round(counts[i][0]) + ",";
-        csv += Math.round(totals[i]) + ",";
+        csv += "\"" + mainLabels[i].replace("<br>"," ")+"\","+roundValue(counts[i][0]) + ",";
+        csv += roundValue(totals[i]) + ",";
         csv += (counts[i][0]/totals[i]*100).toFixed(1) + "%\r\n";
     }
 
@@ -66,10 +70,10 @@ function simpleExplorerCSV(mainTitle, mainLabels, counts, totals, year, filterSt
 
     for(let i=0; i<mainLabels.length; i++)
     {
-        csv += "\"" + mainLabels[i].replace("<br>"," ")+"\","+Math.round(counts[i][0]) + ",";
+        csv += "\"" + mainLabels[i].replace("<br>"," ")+"\","+roundValue(counts[i][0]) + ",";
         csv += (counts[i][0]/totals[0]*100).toFixed(1) + "%\r\n";
     }
-    csv += "Total," + Math.round(totals[0]) + ",100%";
+    csv += "Total," + roundValue(totals[0]) + ",100%";
 
     tableToExcel(csv);
 }
@@ -107,9 +111,9 @@ function crosstabHighlightCSV(mainTitle, groupTitle, mainLabels, groupLabels, co
     {
         csv += ',"'+mainLabels[i].replace("<br>"," ")+'",';
         for(let j=0; j<groupLabels.length; j++) {
-            csv += Math.round(counts[i][j]) + ",";
+            csv += roundValue(counts[i][j]) + ",";
         }
-        csv += Math.round(sumPositives[i]) + "," + Math.round(totals[i]) + "," + (sumPositives[i]/totals[i]*100).toFixed(1) + "%\r\n";
+        csv += roundValue(sumPositives[i]) + "," + roundValue(totals[i]) + "," + (sumPositives[i]/totals[i]*100).toFixed(1) + "%\r\n";
     }
 
     tableToExcel(csv);
@@ -127,16 +131,16 @@ function crosstabExplorerCSV(mainTitle, groupTitle, mainLabels, groupLabels, cou
     {
         csv += ',"'+mainLabels[i].replace("<br>"," ")+'",';
         for(let j=0; j<groupLabels.length; j++) {
-            csv += Math.round(counts[i][j]) + ",";
+            csv += roundValue(counts[i][j]) + ",";
         }
-        csv += Math.round(totals[i]) + "," + (totals[i]/sumTotal*100).toFixed(1) + "%\r\n";
+        csv += roundValue(totals[i]) + "," + (totals[i]/sumTotal*100).toFixed(1) + "%\r\n";
     }
 
     csv += ",Total,";
     for (let j = 0; j < groupLabels.length; j++) {
-        csv += Math.round(groupTotals[j]) + ",";
+        csv += roundValue(groupTotals[j]) + ",";
     }
-    csv += Math.round(sumTotal) + ",100%\r\n";
+    csv += roundValue(sumTotal) + ",100%\r\n";
     csv += ",% Total,";
     for (let j = 0; j < groupLabels.length; j++) {
         csv += (groupTotals[j] / sumTotal * 100).toFixed(1) + "%,";
@@ -188,8 +192,8 @@ function createSimpleHighlightTable(tableElem, labels, counts, totals) {
     for(let i=0; i<labels.length; i++) {
         let row = $('<tr></tr>').appendTo(table);
         row.append('<th>' + labels[i] + '</th>');
-        row.append('<td>' + Math.round(counts[i][0]).toLocaleString() + '</td>');
-        row.append('<td>' + Math.round(totals[i]).toLocaleString() + '</td>');
+        row.append('<td>' + roundValue(counts[i][0]).toLocaleString() + '</td>');
+        row.append('<td>' + roundValue(totals[i]).toLocaleString() + '</td>');
         row.append('<td>' + (counts[i][0]/totals[i]*100).toFixed(1) + '%</td>');
     }
 }
@@ -206,13 +210,13 @@ function createSimpleExplorerTable(tableElem, labels, counts, sumTotal) {
     for(let i=0; i<labels.length; i++) {
         let row = $('<tr></tr>').appendTo(table);
         row.append('<th>' + labels[i] + '</th>');
-        row.append('<td>' + Math.round(counts[i]).toLocaleString() + '</td>');
-        row.append('<td>' + (counts[i]/sumTotal*100).toFixed(1) + '%</td>');
+        row.append('<td>' + roundValue(counts[i][0]).toLocaleString() + '</td>');
+        row.append('<td>' + (counts[i][0]/sumTotal*100).toFixed(1) + '%</td>');
     }
 
     //add total row
     table.append('<tr><th>Total</th>' +
-        '<td>' + Math.round(sumTotal).toLocaleString() + '</td>' +
+        '<td>' + roundValue(sumTotal).toLocaleString() + '</td>' +
         '<td>100.0%</td></tr>');
 }
 
@@ -274,12 +278,12 @@ function createCrosstabHighlightTable(tableElem, mainTitle, groupTitle, mainLabe
         //answer label in second column, followed by data
         row.append('<th>'+mainLabels[i]+'</th>');
         for(let j=startIndex; j<groupLabels.length; j++) {
-                row.append('<td>'+Math.round(counts[i][j]).toLocaleString()+'</td>');
+                row.append('<td>'+roundValue(counts[i][j]).toLocaleString()+'</td>');
         }
 
         //end row with total and percentage
-        row.append('<td>'+Math.round(sumPositives[i]).toLocaleString()+'</td>' +
-            '<td>' + Math.round(totals[i]).toLocaleString() + '</td>' +
+        row.append('<td>'+roundValue(sumPositives[i]).toLocaleString()+'</td>' +
+            '<td>' + roundValue(totals[i]).toLocaleString() + '</td>' +
             '<td>' + (sumPositives[i]/totals[i]*100).toFixed(1) + '%</td>');
     }
 }
@@ -312,20 +316,20 @@ function createCrosstabExplorerTable(tableElem, mainTitle, groupTitle, mainLabel
         //answer label in second column, followed by data
         row.append('<th>'+mainLabels[i]+'</th>');
         for(let j=0; j<groupLabels.length; j++) {
-            row.append('<td>'+Math.round(counts[i][j]).toLocaleString()+'</td>');
+            row.append('<td>'+roundValue(counts[i][j]).toLocaleString()+'</td>');
         }
 
         //end row with total and percentage
-        row.append('<td>'+Math.round(totals[i]).toLocaleString() + '</td>' +
+        row.append('<td>'+roundValue(totals[i]).toLocaleString() + '</td>' +
             '<td>' + (totals[i]/sumTotal*100).toFixed(1) + '%</td>');
     }
 
     //final two rows have the group totals
     row = $('<tr><th colspan="2">Total</th></tr>').appendTo(table);
     for (let i = 0; i < groupLabels.length; i++) {
-        row.append('<td>' + Math.round(groupTotals[i]).toLocaleString() + '</td>');
+        row.append('<td>' + roundValue(groupTotals[i]).toLocaleString() + '</td>');
     }
-    row.append('<td>' + Math.round(sumTotal).toLocaleString() + '</td><td>100.0%</td>');
+    row.append('<td>' + roundValue(sumTotal).toLocaleString() + '</td><td>100.0%</td>');
 
     row = $('<tr><th colspan="2">% Total</th></tr>').appendTo(table);
     for (let i = 0; i < groupLabels.length; i++) {

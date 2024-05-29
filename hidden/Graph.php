@@ -13,8 +13,8 @@ class Graph
     public ?int $incomeFilter;
     public array $percentData; //the data structure used by AmCharts to generate a graph
     public int $graphHeight; //height of the graph in pixels
-    public int $noResponse; //number of surveys that didn't answer this question
-    public int $sumTotal; //number of surveys that did answer the question
+    public float $noResponse; //number of surveys that didn't answer this question
+    public float $sumTotal; //number of surveys that did answer the question
     public array $sumPositives; //number of surveys that answered positively
 
     public string $title;
