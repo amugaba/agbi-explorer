@@ -30,10 +30,10 @@
         <div id="iu-menu" class="off-canvas position-right off-canvas-items" data-off-canvas="" data-position="right">
             <div class="mobile off-canvas-list" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
                 <ul>
-                    <li><a href="/" itemprop="url"><span itemprop="name">Data Explorer Home</span></a></li>
-                    <li><a href="/highlights.php" itemprop="url"><span itemprop="name">Survey Highlights</span></a></li>
-                    <li><a href="/graphs.php" itemprop="url"><span itemprop="name">Explore the Data</span></a></li>
-                    <li><a href="/contact.php" itemprop="url"><span itemprop="name">Contact us</span></a></li>
+                    <li><a href="index.php" itemprop="url"><span itemprop="name">Data Explorer Home</span></a></li>
+                    <li><a href="highlights.php" itemprop="url"><span itemprop="name">Survey Highlights</span></a></li>
+                    <li><a href="graphs.php" itemprop="url"><span itemprop="name">Explore the Data</span></a></li>
+                    <li><a href="contact.php" itemprop="url"><span itemprop="name">Contact us</span></a></li>
                     <li><a href="https://ipgap.indiana.edu/" itemprop="url"><span itemprop="name">IPGAP Home</span></a></li>
                 </ul>
             </div>
@@ -42,7 +42,7 @@
 
     <div class="site-header" itemscope="itemscope" itemtype="http://schema.org/CollegeOrUniversity">
         <div class="row pad">
-            <h1><a class="title" href="/">
+            <h1><a class="title" href="index.php">
                     <div style="font-size:2rem; padding-top:15px;">Adult Gambling Behaviors in Indiana (AGBI) Survey</div>
                 </a></h1>
         </div>
@@ -50,10 +50,10 @@
 
     <nav aria-label="Main" id="nav-main" role="navigation" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement" class="main show-for-large dropdown">
         <ul class="row pad">
-            <li class="show-on-sticky home"><a href="/" aria-label="Home">Home</a></li>
-            <li class="first"><a href="/highlights.php" itemprop="url"><span itemprop="name">Survey Highlights</span></a></li>
-            <li><a href="/graphs.php" itemprop="url"><span itemprop="name">Explore the Data</span></a></li>
-            <li><a href="/contact.php" itemprop="url"><span itemprop="name">Contact Us</span></a></li>
+            <li class="show-on-sticky home"><a href="index.php" aria-label="Home">Home</a></li>
+            <li class="first"><a href="highlights.php" itemprop="url"><span itemprop="name">Survey Highlights</span></a></li>
+            <li><a href="graphs.php" itemprop="url"><span itemprop="name">Explore the Data</span></a></li>
+            <li><a href="contact.php" itemprop="url"><span itemprop="name">Contact Us</span></a></li>
             <li class="last"><a href="https://ipgap.indiana.edu/" itemprop="url"><span itemprop="name">IPGAP Home</span></a></li>
             <li class="show-on-sticky search search-img" style="display: none"><a class="search-toggle" href="/search/"><img src="https://assets.iu.edu/web/3.x/css/img/search.png" alt="Search"/></a>
             </li>
