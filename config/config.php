@@ -36,12 +36,13 @@ else {
 function include_styles() {
     $root = HTTP_ROOT;
     echo "
+    <link rel='stylesheet' type='text/css' href='//fonts.iu.edu/style.css?family=BentonSans:regular,bold|BentonSansCond:regular,bold|GeorgiaPro:regular|BentonSansLight:regular'>
+    <link rel='stylesheet' href='//assets.iu.edu/web/fonts/icon-font.css' media='screen'>
+    <link rel='stylesheet' href='//assets.iu.edu/web/3.2.x/css/iu-framework.min.css'>
+    <link rel='stylesheet' href='//assets.iu.edu/brand/3.2.x/brand.min.css'>
+    <link rel='stylesheet' href='//assets.iu.edu/search/3.2.x/search.min.css'>
     <link rel='stylesheet' href='$root/css/app.css'>
-    <link rel='stylesheet' href='//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.min.css'>
-    <script src='//code.jquery.com/jquery-1.10.2.min.js'></script>
-    <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
-    <script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-    <script src='//code.jquery.com/ui/1.11.4/jquery-ui.min.js'></script>
+    <link rel='stylesheet' href='https://code.jquery.com/ui/1.13.3/themes/smoothness/jquery-ui.css'>
     ";
 
     if(!DEBUG) {
@@ -58,7 +59,13 @@ function include_styles() {
 }
 function include_js() {
     $root = HTTP_ROOT;
-    echo "<script src='$root/js/amcharts3/amcharts.js'></script>
+    echo "<script src='//assets.iu.edu/web/1.5/libs/modernizr.min.js'></script>
+<script src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=' crossorigin='anonymous'></script>
+        <script src='https://assets.iu.edu/web/3.2.x/js/iu-framework.min.js'></script>
+        <script src='https://assets.iu.edu/search/3.2.x/search.min.js'></script>
+        <script src='https://ipgap.indiana.edu/_assets/js/site.js'></script>
+    <script src='https://code.jquery.com/ui/1.13.3/jquery-ui.min.js'></script>
+        <script src='$root/js/amcharts3/amcharts.js'></script>
         <script src='$root/js/amcharts3/serial.js'></script>
         <script src='$root/js/amcharts3/plugins/export/export.min.js'></script>
         <link href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css' rel='stylesheet'/>
@@ -69,10 +76,10 @@ function include_js() {
 }
 
 function include_header() {
-    include ROOT_PATH."inc/navbar.php";
+    include ROOT_PATH."inc/iu-header.php";
 }
 function include_footer() {
-    include ROOT_PATH."inc/footer.php";
+    include ROOT_PATH."inc/iu-footer.php";
 }
 function echo_self() {
     echo htmlspecialchars($_SERVER["PHP_SELF"]);

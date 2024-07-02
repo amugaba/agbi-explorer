@@ -18,43 +18,32 @@ $graph = Graph::createHighlightsGraph($year, $category, $group);
 <head>
     <meta charset="UTF-8">
     <title>Highlights - Adult Gambling Behaviors Survey</title>
-    <?php include_styles() ?>
-    <?php include_styles();
-    include_js(); ?>
+    <?php include_styles(); ?>
 </head>
-<body>
+<body class="has-banner has-page-title landmarks" id="home">
 <?php include_header(); ?>
-<div class="container" id="main">
+<div class="bg-midnight-dark section wide" id="content">
     <div class="row">
-        <div class="col-md-3 sidebar" style="padding-top: 10px">
-            <div class="shadow" style="font-size: 18px; margin-top: 15px;">Showing highlights for<br>
-                <select id="yearSelect" style="width:85px; height: 28px; font-size: 18px; padding-top: 1px; margin-left: 5px" class="selector" onchange="changeYear(this.value)" title="Change year drop down">
-                    <?php foreach (getAllYears() as $yearOption) {
-                        echo "<option value='$yearOption'>$yearOption</option>";
-                    }?>
-                </select>
-                <select id="categorySelect" class="selector hidden-md hidden-lg hidden-xl" onchange="changeCategory(this.value)" style="margin-bottom: 15px; font-size: 18px; margin-left: 5px">
-                    <option value="1">Gambling Related Experiences</option>
-                    <option value="2">Gambling Problems</option>
-                    <option value="3">Gambling Consequences</option>
-                    <option value="4">Services for Problem Gambling</option>
-                    <option value="5">Other Health Concerns</option>
-                </select>
-            </div>
-            <div class="hidden-sm hidden-xs">
-                <h2 class="shadowdeep">Select a Category
-                    <div class="tipButton"  data-toggle="tooltip" data-placement="top" title="Each category highlights several significant behaviors and shows the percentage of people that engaged in those behaviors."></div>
-                </h2>
-                <ul class="categories shadow hidden-sm">
-                    <li><a data-category="1">Gambling Related Experiences</a></li>
-                    <li><a data-category="2">Gambling Problems</a></li>
-                    <li><a data-category="3">Gambling Consequences</a></li>
-                    <li><a data-category="4">Services for Problem Gambling</a></li>
-                    <li><a data-category="5">Other Health Concerns</a></li>
-                </ul>
-            </div>
+        <div class="layout text-center">
+            <h3 style="color: white">Select a Year and Category to See Highlights</h3>
+            <select id="yearSelect" class="selector" onchange="changeYear(this.value)" title="Change year drop down">
+                <?php foreach (getAllYears() as $yearOption) {
+                    echo "<option value='$yearOption'>$yearOption</option>";
+                }?>
+            </select>
+            <select id="categorySelect" class="selector" onchange="changeCategory(this.value)" style="margin-left: 5px">
+                <option value="1">Gambling Related Experiences</option>
+                <option value="2">Gambling Problems</option>
+                <option value="3">Gambling Consequences</option>
+                <option value="4">Services for Problem Gambling</option>
+                <option value="5">Other Health Concerns</option>
+            </select>
         </div>
-        <div class="col-md-9 mainbar">
+    </div>
+</div>
+<div class="bg-none section wide">
+    <div class="row">
+        <div class="layout">
             <div style="text-align: center;">
                 <h2 id="graphTitle"></h2>
                 <p class="hideIfNoGraph"><b>Mouse over</b> the graph's labels and bars to see in more detail what each element represents.</p>
@@ -63,18 +52,20 @@ $graph = Graph::createHighlightsGraph($year, $category, $group);
                 </div>
             </div>
 
-            <div id="grouping" class="groupbox hideIfNoGraph" style="width:600px; margin: 20px auto 0">
-                <span style="font-weight: bold">Group data by:</span>
-                <input id="none" name="grouping" type="radio" value="" checked="checked"/><label for="none">None</label>
-                <input id="Q_pers3" name="grouping" type="radio" value="Q_pers3"/><label for="Q_pers3">Age Range</label>
-                <input id="Q_pers9" name="grouping" type="radio" value="Q_pers9"/><label for="Q_pers9">Gender</label>
-                <input id="race_merge" name="grouping" type="radio" value="race_merge"/><label for="race_merge">Race</label>
-                <input id="Q_pers7" name="grouping" type="radio" value="Q_pers7"/><label for="Q_pers7">Income</label>
-                <div class="tipButton" style="margin:0 0 3px 17px"  data-toggle="tooltip" data-placement="top" title="You can separate respondents by age, gender, race, or income to see how each group answered."></div>
+            <div class="groupbox hideIfNoGraph" style="width:600px; margin: 20px auto 0">
+                <span style="font-weight: bold; margin-right: 10px">Group data by:</span>
+                <div id="grouping">
+                    <input id="none" name="grouping" type="radio" value="" checked="checked"/><label for="none">None</label>
+                    <input id="Q_pers3" name="grouping" type="radio" value="Q_pers3"/><label for="Q_pers3">Age Range</label>
+                    <input id="Q_pers9" name="grouping" type="radio" value="Q_pers9"/><label for="Q_pers9">Gender</label>
+                    <input id="race_merge" name="grouping" type="radio" value="race_merge"/><label for="race_merge">Race</label>
+                    <input id="Q_pers7" name="grouping" type="radio" value="Q_pers7"/><label for="Q_pers7">Income</label>
+                </div>
+                <div class="tipButton" style="margin:0 0 -5px 17px"  data-toggle="tooltip" data-placement="top" title="You can separate respondents by age, gender, race, or income to see how each group answered."></div>
             </div>
             <div id="chartDiv" style="width100%; height:<?php echo $graph->graphHeight;?>px;"></div>
             <div style="width: 100%; text-align: center" class="hideIfNoGraph">
-                <input type="button" onclick="exportGraph()" value="Export to PDF" class="btn btn-blue">
+                <input type="button" onclick="exportGraph()" value="Export to PDF" class="button invert">
             </div>
 
             <div style="text-align: center; margin-bottom: 20px;" class="hideIfNoGraph">
@@ -85,12 +76,13 @@ $graph = Graph::createHighlightsGraph($year, $category, $group);
                 </div>
                 <table id="datatable" class="datatable" style="margin: 0 auto; text-align: right; border:none">
                 </table>
-                <input type="button" onclick="exportCSV()" class="btn btn-blue" value="Export to CSV" style="margin-top: 10px">
+                <input type="button" onclick="exportCSV()" class="button invert" value="Export to CSV" style="margin-top: 10px">
             </div>
         </div>
     </div>
 </div>
-<?php include_footer(); ?>
+<?php include_footer();
+include_js(); ?>
 <script>
     //Inputs, used to set links
     let year = <?php echo json_encode($year); ?>;

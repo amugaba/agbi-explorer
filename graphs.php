@@ -26,109 +26,115 @@ $categories = $ds->getCategories();
 <head>
     <meta charset="UTF-8">
     <title>Explore the Data - Adult Gambling Behaviors Survey</title>
-    <?php include_styles();
-          include_js(); ?>
+    <?php include_styles(); ?>
 </head>
-<body>
+<body class="has-banner has-page-title landmarks" id="home">
 <?php include_header(); ?>
-<div class="container" id="main">
-    <div class="row title">
-        <form method="get" action="graphs.php">
-        <div class="shadow" style="font-size: 22px; margin-top: 15px; color: white; text-align: center">
-            Using year
-            <select id="filterYear" name="year" style="height: 28px; font-size: 18px; padding-top: 1px; margin-left: 5px" class="selector" onchange="changeYear()" title="Change year drop down">
-                <?php foreach (getAllYears() as $yearOption) {
-                    echo "<option value='$yearOption'>$yearOption</option>";
-                }?>
-            </select>
-        </div>
-        <div class="searchbar">
-            <label class="shadow" for="question1">1. Select primary question:</label>
-            <select id="category1" name="cat1" style="width:160px" class="selector" title="Select category to filter primary question">
-                <option value="" selected="selected">All categories</option>
-                <?php foreach ($categories as $category) {
-                    echo "<option value='$category->id'>$category->name</option>";
-                }?>
-            </select>
-            <select id="question1" name="q1" class="searchbox">
-                <option value="" selected="selected">Select a question</option>
-            </select><br>
-            <label class="shadow" for="question2">2. (Optional) Crosstabulate data by another question:</label>
-            <select id="category2" name="cat2" style="width:160px" class="selector" title="Select category to filter secondary question">
-                <option value="" selected="selected">All categories</option>
-                <?php foreach ($categories as $category) {
-                    echo "<option value='$category->id'>$category->name</option>";
-                }?>
-            </select>
-            <select id="question2" name="grp" class="searchbox">
-                <option value="" selected="selected">Select a question</option>
-            </select><br>
-            <label class="shadow">3. (Optional) Filter data by:</label>
-            <select id="filterAge" name="age" class="filter selector hide6" title="Age Range">
-                <option value="">Age Range</option>
-                <option value="0">18 - 24</option>
-                <option value="1">25 - 34</option>
-                <option value="2">35 - 44</option>
-                <option value="3">45 - 54</option>
-                <option value="4">55 - 64</option>
-                <option value="5">54 - 74</option>
-                <option value="6">75+</option>
-            </select>
-            <select id="filterGender" name="gender" class="filter selector" title="Gender">
-                <option value="">Gender</option>
-                <option value="0">Male</option>
-                <option value="1">Female</option>
-            </select>
-            <select id="filterRace" name="race" class="filter selector" title="Race">
-                <option value="">Race</option>
-                <option value="0">White</option>
-                <option value="1">Black or African American</option>
-                <option value="2">Other race</option>
-            </select>
-            <select id="filterIncome" name="income" class="filter selector" title="Income">
-                <option value="">Income</option>
-                <option value="0">Less than $15,000</option>
-                <option value="1">$15,000 to $34,999</option>
-                <option value="2">$35,000 to $49,999</option>
-                <option value="3">$50,000 to $74,999</option>
-                <option value="4">$75,000 to $99,999</option>
-                <option value="5">$100,000 to $149,999</option>
-                <option value="6">$150,000 or more</option>
-            </select><br>
-            <div style="text-align: center;">
-                <input type="submit" value="Generate Graph" class="btn">
-                <input type="button" value="Reset" class="btn" onclick="location.href = 'graphs.php'">
-            </div>
-        </div>
-        </form>
-    </div>
-    <div class="row" style="margin: 10px auto; max-width: 1400px">
-        <?php if($graph == null):
-            include "instructions.php";
-        else: ?>
-            <div style="text-align: center;">
-                <div id="graphTitle"></div>
-            </div>
-
-            <div id="chartDiv" style="width100%; height:<?= $graph->graphHeight;?>px;"></div>
-            <div style="width: 100%; text-align: center" class="hideIfNoGraph">
-                <input type="button" onclick="exportGraph()" value="Export to PDF" class="btn btn-blue">
-            </div>
-
-            <div style="text-align: center; margin-bottom: 20px;">
-                <div class="h3">
-                    Data Table
-                    <div class="tipButton" data-toggle="tooltip" data-placement="top"
-                         title="This table shows the number of people in each category. To save this data, click Export to CSV."></div>
+<div class="bg-midnight-dark section wide" id="content">
+    <div class="row">
+        <div class="layout text-center">
+            <form method="get" action="graphs.php">
+                <div class="shadow" style="font-size: 22px; color: white; text-align: center">
+                    Using year
+                    <select id="filterYear" name="year" style="margin-left: 5px" class="selector" onchange="changeYear()" title="Change year drop down">
+                        <?php foreach (getAllYears() as $yearOption) {
+                            echo "<option value='$yearOption'>$yearOption</option>";
+                        }?>
+                    </select>
                 </div>
-                <table id="datatable" class="datatable" style="margin: 0 auto; text-align: right; border:none"></table>
-                <div>No Response: <?= number_format($graph->noResponse);?></div>
-                <input type="button" onclick="exportCSV()" value="Export to CSV" class="btn btn-blue" style="margin-top: 10px">
-            </div>
-        <?php endif; ?>
+                <div class="searchbar">
+                    <label class="shadow" for="question1">1. Select primary question:</label>
+                    <select id="category1" name="cat1" style="width:300px" class="selector" title="Select category to filter primary question">
+                        <option value="" selected="selected">All categories</option>
+                        <?php foreach ($categories as $category) {
+                            echo "<option value='$category->id'>$category->name</option>";
+                        }?>
+                    </select>
+                    <select id="question1" name="q1" class="searchbox">
+                        <option value="" selected="selected">Select a question</option>
+                    </select><br>
+                    <label class="shadow" for="question2">2. (Optional) Crosstabulate data by another question:</label>
+                    <select id="category2" name="cat2" style="width:300px" class="selector" title="Select category to filter secondary question">
+                        <option value="" selected="selected">All categories</option>
+                        <?php foreach ($categories as $category) {
+                            echo "<option value='$category->id'>$category->name</option>";
+                        }?>
+                    </select>
+                    <select id="question2" name="grp" class="searchbox">
+                        <option value="" selected="selected">Select a question</option>
+                    </select><br>
+                    <label class="shadow">3. (Optional) Filter data by:</label>
+                    <select id="filterAge" name="age" class="filter selector hide6" title="Age Range" style="width: 173px">
+                        <option value="">Age Range</option>
+                        <option value="0">18 - 24</option>
+                        <option value="1">25 - 34</option>
+                        <option value="2">35 - 44</option>
+                        <option value="3">45 - 54</option>
+                        <option value="4">55 - 64</option>
+                        <option value="5">54 - 74</option>
+                        <option value="6">75+</option>
+                    </select>
+                    <select id="filterGender" name="gender" class="filter selector" title="Gender" style="width: 173px">
+                        <option value="">Gender</option>
+                        <option value="0">Male</option>
+                        <option value="1">Female</option>
+                    </select>
+                    <select id="filterRace" name="race" class="filter selector" title="Race">
+                        <option value="">Race</option>
+                        <option value="0">White</option>
+                        <option value="1">Black or African American</option>
+                        <option value="2">Other race</option>
+                    </select>
+                    <select id="filterIncome" name="income" class="filter selector" title="Income">
+                        <option value="">Income</option>
+                        <option value="0">Less than $15,000</option>
+                        <option value="1">$15,000 to $34,999</option>
+                        <option value="2">$35,000 to $49,999</option>
+                        <option value="3">$50,000 to $74,999</option>
+                        <option value="4">$75,000 to $99,999</option>
+                        <option value="5">$100,000 to $149,999</option>
+                        <option value="6">$150,000 or more</option>
+                    </select><br>
+                    <div style="text-align: center;">
+                        <input type="submit" value="Generate Graph" class="button invert">
+                        <input type="button" value="Reset" class="button invert" onclick="location.href = 'graphs.php'">
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-<?php include_footer(); ?>
+<div class="bg-none section wide">
+    <div class="row">
+        <div class="layout">
+            <?php if($graph == null):
+                include "instructions.php";
+            else: ?>
+                <div style="text-align: center;">
+                    <div id="graphTitle"></div>
+                </div>
+
+                <div id="chartDiv" style="width100%; height:<?= $graph->graphHeight;?>px;"></div>
+                <div style="width: 100%; text-align: center" class="hideIfNoGraph">
+                    <input type="button" onclick="exportGraph()" value="Export to PDF" class="button invert">
+                </div>
+
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div class="h3">
+                        Data Table
+                        <div class="tipButton" data-toggle="tooltip" data-placement="top"
+                             title="This table shows the number of people in each category. To save this data, click Export to CSV."></div>
+                    </div>
+                    <table id="datatable" class="datatable" style="margin: 0 auto; text-align: right; border:none"></table>
+                    <div>No Response: <?= number_format($graph->noResponse);?></div>
+                    <input type="button" onclick="exportCSV()" value="Export to CSV" class="button invert" style="margin-top: 10px">
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+    <?php include_footer();
+    include_js(); ?>
 <script>
     let graph = {
         mainVariable: { code:null, question:null, summary:null, labels:null, counts:null, totals:null },
@@ -154,6 +160,7 @@ $categories = $ds->getCategories();
             $('#category2').val(cat2);
         enableSelect2(questions, "#category1", "#question1");
         enableSelect2(questions, "#category2", "#question2", true);
+
 
 
         if(graph != null) {

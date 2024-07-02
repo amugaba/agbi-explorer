@@ -77,15 +77,8 @@ div.groupbox {
     padding-left: 20px;
 }
 
-.testcolors {
-    color: #7cc27c;
-    color: #70a1c2;
-    color: #d4d257;
-    color: #ddaf45;
-    color: #c26751;
-    color: #c273bf;
-    color: #c29e88;
-    color: #567ac2;
+.ui-button .ui-icon {
+    display: none;
 }
 
 table.datatable {
@@ -97,6 +90,7 @@ table.datatable {
     background-color:grey;
     color: white;
     text-align:right;
+    letter-spacing: 1px;
 }
 .datatable td {
     border: 1px solid black;
@@ -108,56 +102,8 @@ table.datatable {
     width: 100%;
 }
 
-/* CUSTOMIZE THE CAROUSEL
--------------------------------------------------- */
-
-/* Carousel base class */
-.carousel {
-    height: 500px;
-}
-/* Since positioning the image, we need to help out the caption */
-.item .carousel-caption {
-    z-index: 10;
-    font-size: 28pt;
-    text-shadow: 2px 3px 2px rgba(0,0,0,.6);
-    background-color: rgba(0,0,0,.6);
-    max-width:750px;
-    margin: 0 auto;
-}
-.carousel-caption a {
-    color: white !important;
-    text-decoration: none !important;
-}
-
-/* Declare heights because of positioning of img element */
-.carousel .item {
-    height: 500px;
-}
-
-.item img {
-    margin: 0px auto 0;
-}
-
-#topbar {
-    background: #091f2f;
-    background: linear-gradient(180deg, #273a48, #091f2f);
-    background-image: -moz-linear-gradient(#273a48, #091f2f);
-    border-color: #091f2f;
-    border-radius: 0;
-}
 .navbar-default .navbar-nav>li>a {
     color: white !important;
-}
-.bg-fill {
-    background: #265c8a;
-}
-.row.title {
-    background: #265c8a;
-}
-
-#bottombar {
-    background: #f5f5f5;
-    text-align: center;
 }
 
 .shadowdeep {
@@ -172,81 +118,46 @@ table.datatable {
     font-size: 13pt;
 }
 
-.sidebar {
-    margin-bottom: -9999px;
-    padding-bottom: 9999px;
-    background-color: #265c8a;
-    color: #ffffff;
-}
-
 .searchbar {
-    max-width: 810px;
+    max-width: 900px;
     border: thin white solid;
     padding: 10px;
     margin: 10px auto;
-}
-.searchbar select {
-    margin-bottom: 15px;
+    text-align: center;
 }
 
 .searchbar label {
     color: #ffffff;
-    font-size: 12pt;
+    font-size: 18px;
+    display: block;
+    width: 100%;
 }
-@media (min-width: 810px) {
-    .searchbar label {
-        width: 220px;
-    }
-}
-@media (max-width: 809px) {
-    .searchbar {
-        text-align: center;
-    }
-    .searchbar label {
-        width: 100%;
-    }
+#graphTitle h4 {
+    font-size: 20px;
 }
 
 .searchbox {
-    width: 400px;
+    width: 525px;
     display: inline-block;
+    margin-top: -2px;
+}
+.select2-selection {
+    height: 40px !important;
+    padding-top: 5px !important;
+}
+.select2-results__options {
+    font-size: 16px;
+}
+.select2-search--dropdown {
+    height:50px
 }
 .searchbox > div {
     background-color: white;
 }
-.select2-selection__clear {
-    font-size: 20px;
-}
 
-.categories a {
-    font-size: 13pt;
-    color: #ffffff;
-}
-
-.categories li {
-    margin: 0 0 10px 0;
-}
-
-.row {
-    overflow: hidden;
-}
-
-@media (min-width: 1200px) {
-    .sidebar {
-        max-width: 400px;
-    }
-}
-
-@media (max-width: 991px) {
-    .sidebar {
-        margin-bottom: 0;
-        padding-bottom: 0;
-        margin-top: -20px;
-        text-align: center;
-    }
-    .categories li {
-        margin: 0 0 4px 0;
-    }
+.button.invert {
+    background: white;
+    font-size: 18px;
 }
 
 button.tipButton {
@@ -309,12 +220,12 @@ th.clearcell {
 .selector {
     border: 1px solid #aaa;
     border-radius: 4px;
-    height: 28px;
+    height: 40px;
     color: #444;
-    font-size: 14px;
-
+    font-size: 18px;
+    padding-top: 8px;
     padding-left: 6px;
-
+    width: auto;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
